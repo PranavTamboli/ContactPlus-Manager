@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+              th:replace="~{base::layout(~{::section})}">
+            <!--     th:replace="base::layout(~{::section})"> -->
+<head>
+    <meta charset="UTF-8" />
+    <title>Home page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="rows">
+                <div class="col-md-8 offset-md-2">
+                    <div class="my-card mt-3">
+                    
+                       							 <!-- Flash messages -->
+                        <!-- <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+                             <p th:text="${session.message.content}"></p>
+                             <th:block th:remove="all">
+                                <span th:text="${#session.removeAttribute('message')}"></span>
+                             </th:block>
+                        </div> -->
+                        <div th:if="${session.message}" class="alert alert-info" role="alert">
+    							<p th:text="${session.message.content}"></p>
+   								 <th:block th:remove="all">
+     						   <span th:text="${#session.removeAttribute('message')}"></span>
+    							</th:block>
+						</div>
+                        
+                    
+                        <div class="container text-center">
+                            <img alt="" style="width:80px" th:src="@{/img/membership.png}">
+                        </div>
+                    
+                        <h1 class="text-center">Signup here !!</h1>
+        
+                        <!-- Form Registration  -->
+                        <form novalidate = "novalidate" action="" th:action="@{/do_register}" method="post" th:object="${user}">
+                        
+                            <div class="form-group">
+					    <label for="name_field">Your Name</label>
+					    <input 
+					        name="name"
+					        type="text" 
+					        class="form-control" 
+					      	th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}"
+					        id="name_field" 
+					        placeholder="Enter here"
+					        required
+					        th:value="${user.name}" 
+					    />
+					
+					    <div class="invalid-feedback" 
+					        th:if="${#fields.hasErrors('name')}" 
+					        th:each="err : ${#fields.errors('name')}" 
+					        th:text="${err}">
+					    </div> 
+					  
+					</div>
+
+                          
+                            <div class="form-group">
+                                <label for="email_field">Your Email</label>
+                                <input 
+                                name="email"
+                                type="email" 
+                                class="form-control" 
+                                id="email_field" 
+                                placeholder="Enter here"
+                                required
+                                th:value="${user.email}"
+                                />
+                            </div>
+                          
+                            <div class="form-group">
+                                <label for="password_field">Your password</label>
+                                <input 
+                                name="password"
+                                type="password" 
+                                class="form-control" 
+                                id="password_field" 
+                                placeholder="Enter here"
+                                required
+                                />
+                            </div>
+                          
+                            <div class="form-group">
+                                <textarea name="about" th:text="${user.about}" placeholder="Enter Something about yourself" rows="10" class="form-control"></textarea>
+                            </div>
+                        
+                            <!-- Terms and Conditions -->
+                           <div class="form-group form-check text-center">
+  						
+  								<input type="checkbox" 
+  								name="agreement"
+  								class="form-check-input"
+  								id="agreement"
+  								
+  								/>	
+  								
+  								<label for="agreement">Accept terms and conditions</label>
+  									
+                            </div>
+                                                
+                            <div class="container text-center">
+                                <button type="submit" class="btn bg-primary text-white">Submit</button>
+                                <button type="reset" class="btn btn-warning">Reset</button>
+                            </div>
+                        
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
